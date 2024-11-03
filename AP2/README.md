@@ -49,7 +49,7 @@ Durante a simulação, começamos definindo um período de clock que se adeque �
 - _Valores_: sample_ori = 00000000000000000000000000000000, sample_can = 11111111111111111111111111111111.
 - _Cálculo_: \( |0 - 255| \* 16 \* = 16.320 \) (decimal) = 11111111000000 (binário), sendo 16 o número de leituras da memória/qtd a ser executado o loop, o 4 a quantidade de vetores de cada memoria operados em paralelo, e |0 - 255| a diferença absoluta de dos 4 pixels de 8 bits da amostra.
 - _Resultado esperado_: Durante o período completo de execução, o circuito suporta o valor máximo possível na saída, confirmando que o valor máximo de SAD é calculado corretamente, validando a capacidade do circuito de lidar com o limite superior.
-- 
+  
 ### Segundo teste (540 ns):
 
 - _Valores_: sample_ori = 11111111111111111111111111111111, sample_can = 11111111111111111111111111111111.
