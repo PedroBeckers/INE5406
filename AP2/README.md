@@ -36,11 +36,11 @@ Na simulação, começamos definindo um período de clock que se adequa à frequ
 
 ## Descrição Sad_v3
 
-O circuito Sad_v3 apresenta a mesma funcionalidade do circuito Sad_v1, porém com menor tempo de execução. O Sad_v3 lê 4 pixels de 8 bits de cada memória por ciclo, ou seja, processa 4 pixels de cada memória em paralelo, diferentemente do Sad_v1 que processa apenas 1 pixel de cada vez. Dessa forma, o Sad_v3 tem um número de ciclos reduzido em comparação com o Sad_v1, sendo aproximadamente 4 vezes mais rápido devido ao paralelismo.
-
-O Sad_v3 requer 51 ciclos para concluir a execução, reduzindo em cerca de 4 vezes o tempo de execução em comparação com os 195 ciclos necessários para o Sad_v1.
+O circuito Sad_v3 apresenta a mesma funcionalidade do circuito Sad_v1, porém com menor tempo de execução. O Sad_v3 lê 4 pixels de 8 bits de cada memória por ciclo, ou seja, processa 4 pixels de cada memória em paralelo, diferentemente do Sad_v1 que processa apenas 1 pixel de cada vez. Dessa forma, o Sad_v3 tem um número de ciclos reduzido em comparação com o Sad_v1, sendo aproximadamente 4 vezes mais rápido devido ao paralelismo. O Sad_v3 requer 51 ciclos para concluir a execução, reduzindo em cerca de 4 vezes o tempo de execução em comparação com os 195 ciclos necessários para o Sad_v1.
 
 #### Simulação Sad_v3
+
+Durante a simulação, começamos definindo um período de clock que se adeque à frequência máxima do circuito, logo após, fizemos testes relacionados ao reset e ao enable e definimos valores para `sample_ori` e `sample_can`. Por fim, quando testamos os valores do estímulos.do no ModelSim, concluímos que os valores retornados estavam de acordo com os valores que esperávamos.
 
 ![sad_v3](https://github.com/user-attachments/assets/3aac03c4-78bc-451b-859f-4f45f6e443c5)
 
