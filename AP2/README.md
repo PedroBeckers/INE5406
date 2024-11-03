@@ -1,9 +1,3 @@
-## Grupo 9
-
-- Arthur Erpen (Matrícula 24105030)
-- Pedro Becker (Matrícula 24100605)  
-  Link para acessar o repositório no GitHub e ver as imagens de simulação: [Link GitHub](https://github.com/PedroBeckers/INE5406)
-
 ## Descrição Sad_v1
 
 O circuito Sad_v1 é projetado para calcular a diferença absoluta somada entre blocos de pixels de imagens. A função deste circuito é comparar um bloco de 8x8 pixels em uma imagem atual, que está sendo codificada (Qi), com um bloco correspondente em uma imagem referência (Qref), que vem de um quadro anterior ou posterior. O circuito acessa as memórias MemA e MemB, onde os valores dos pixels estão armazenados e, para cada pixel no bloco (Qi), o circuito calcula a diferença absoluta em relação ao pixel correspondente no bloco (Qref). O valor da diferença absoluta para cada par de pixels é acumulado em um registrador, e essa acumulação forma o valor total do SAD para o par de blocos (presentes em MemA e MemB). Quanto menor o valor acumulado no SAD, maior a similaridade entre os dois blocos. Além disso, o circuito Sad_v1 necessita de 195 ciclos de relógio para concluir seu processamento, onde cada ciclo lê apenas um pixel de 8 bits de cada memória.
