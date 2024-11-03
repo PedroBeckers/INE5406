@@ -57,25 +57,25 @@ O Sad_v3 requer 51 ciclos para concluir a execução, reduzindo em cerca de 4 ve
 ### Primeiro teste (0 ns):
 
 - _Valores_: sample_ori = 00000000000000000000000000000000, sample_can = 11111111111111111111111111111111.
-- _Cálculo_: \( |0 - 255| \* 16 = 16.320 \) (decimal) = 11111111000000 (binário).
-- _Resultado esperado_: Durante o período completo de execução, o circuito deve suportar o valor máximo possível na saída, confirmando que o valor máximo de SAD é calculado corretamente, validando a capacidade do circuito de lidar com o limite superior.
+- _Cálculo_: \( |0 - 255| \* 16 \* = 16.320 \) (decimal) = 11111111000000 (binário), sendo 16 o número de leituras da memória/qtd a ser executado o loop, o 4 a quantidade de vetores de cada memoria operados em paralelo, e |0 - 255| a diferença absoluta de dos 4 pixels de 8 bits da amostra.
+- _Resultado esperado_: Durante o período completo de execução, o circuito suporta o valor máximo possível na saída, confirmando que o valor máximo de SAD é calculado corretamente, validando a capacidade do circuito de lidar com o limite superior.
 
 ### Segundo teste (540 ns):
 
 - _Valores_: sample_ori = 11111111111111111111111111111111, sample_can = 11111111111111111111111111111111.
-- _Cálculo_: \( |255 - 255| \* 16 = 0 \).
+- _Cálculo_: \( |255 - 255| \* 16 \* 4 = 0 \), sendo 16 o número de leituras da memória/qtd a ser executado o loop, o 4 a quantidade de vetores de cada memoria operados em paralelo, e o |255 - 255| a diferença absoluta dos 4 pixels de 8 bits da amostra.
 - _Resultado esperado_: O valor acumulado do SAD será 0, indicando uma diferença absoluta de 0 entre as amostras sample_ori e sample_can. Esse resultado confirma que o circuito calcula corretamente a diferença quando os blocos são idênticos.
 
 ### Terceiro teste (810 ns):
 
 - _Valores_: sample_ori = 11111111000000001111111100000000, sample_can = 11111111000000001111111100000000.
-- _Cálculo_: \( |4278255360 - 4278255360| \* 16 = 0 \).
+- _Cálculo_: \( (|255 - 255| + |0 - 0| + |255 - 255| + |0 - 0|) \* 16 = 0 \), sendo (|255 - 255| + |0 - 0| + |255 - 255| + |0 - 0|) a soma das diferenças absolutas e 16 o número de leituras da memória/qtd a ser executado o loop.
 - _Resultado esperado_: O circuito apresenta valor de saída 0, pois sample_ori e sample_can são idênticos, o que confirma o correto cálculo de SAD para uma diferença absoluta zero entre os pixels dos blocos.
 
 ### Quarto teste (1050 ns):
 
 - _Valores_: sample_ori = 10000000000000000000000000000000, sample_can = 00000000000000000000000000000010.
-- _Cálculo_: \( |2147483648 - 2| \* 16 = 2080 \) (decimal) = 00100000100000 (binário).
+- _Cálculo_: \((|128 - 0| + |0 - 0| + |0 - 0| + |0 - 2|) \* 16 = 2080 \) (decimal) = 00100000100000 (binário).
 - _Resultado esperado_: O valor de saída do circuito deve ser 2080, confirmando que o cálculo do SAD está correto para uma diferença considerável entre sample_ori e sample_can.
 
 ### Conclusão
