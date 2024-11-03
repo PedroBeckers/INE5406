@@ -6,7 +6,7 @@ O circuito Sad_v1 é projetado para calcular a diferença absoluta somada entre 
 
 Na simulação, começamos definindo um período de clock que se adequa à frequência máxima do circuito. Em seguida, realizamos testes relacionados ao reset e ao enable, além de definir valores para `sample_ori` e `sample_can`. Por fim, ao testar os valores dos estímulos no ModelSim, concluímos que os valores retornados estavam de acordo com os valores esperados.
 
-![Simulação Sad_v1](<Imagem do WhatsApp de 2024-11-03 à(s) 16.22.37_382602e2-1.jpg>)
+![sad_v1](https://github.com/user-attachments/assets/cc52e644-0488-4087-85b4-51d1f1d1a09c)
 
 ### Primeiro teste (0 ns):
 
@@ -42,14 +42,14 @@ O Sad_v3 requer 51 ciclos para concluir a execução, reduzindo em cerca de 4 ve
 
 #### Simulação Sad_v3
 
-![Simulação Sad_v3](<Imagem do WhatsApp de 2024-11-03 à(s) 16.28.44_621a52ac.jpg>)
+![sad_v3](https://github.com/user-attachments/assets/3aac03c4-78bc-451b-859f-4f45f6e443c5)
 
 ### Primeiro teste (0 ns):
 
 - _Valores_: sample_ori = 00000000000000000000000000000000, sample_can = 11111111111111111111111111111111.
 - _Cálculo_: \( |0 - 255| \* 16 \* = 16.320 \) (decimal) = 11111111000000 (binário), sendo 16 o número de leituras da memória/qtd a ser executado o loop, o 4 a quantidade de vetores de cada memoria operados em paralelo, e |0 - 255| a diferença absoluta de dos 4 pixels de 8 bits da amostra.
 - _Resultado esperado_: Durante o período completo de execução, o circuito suporta o valor máximo possível na saída, confirmando que o valor máximo de SAD é calculado corretamente, validando a capacidade do circuito de lidar com o limite superior.
-
+- 
 ### Segundo teste (540 ns):
 
 - _Valores_: sample_ori = 11111111111111111111111111111111, sample_can = 11111111111111111111111111111111.
