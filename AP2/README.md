@@ -1,3 +1,13 @@
+# INE5406
+
+Projetos da disciplina INE5406 - Sistemas Digitais - UFSC
+
+## Grupo 9
+
+- Arthur Erpen (Matrícula 24105030)
+- Pedro Becker (Matrícula 24100605)
+- Link para o repositório no GitHub (Para ver as imagens de simulação) : [GitHub](https://github.com/PedroBeckers/INE5406)
+
 ## Descrição Sad_v1
 
 O circuito Sad_v1 é projetado para calcular a diferença absoluta somada entre blocos de pixels de imagens. A função deste circuito é comparar um bloco de 8x8 pixels em uma imagem atual, que está sendo codificada (Qi), com um bloco correspondente em uma imagem referência (Qref), que vem de um quadro anterior ou posterior. O circuito acessa as memórias MemA e MemB, onde os valores dos pixels estão armazenados e, para cada pixel no bloco (Qi), o circuito calcula a diferença absoluta em relação ao pixel correspondente no bloco (Qref). O valor da diferença absoluta para cada par de pixels é acumulado em um registrador, e essa acumulação forma o valor total do SAD para o par de blocos (presentes em MemA e MemB). Quanto menor o valor acumulado no SAD, maior a similaridade entre os dois blocos. Além disso, o circuito Sad_v1 necessita de 195 ciclos de relógio para concluir seu processamento, onde cada ciclo lê apenas um pixel de 8 bits de cada memória.
@@ -49,7 +59,7 @@ Durante a simulação, começamos definindo um período de clock que se adeque �
 - _Valores_: sample_ori = 00000000000000000000000000000000, sample_can = 11111111111111111111111111111111.
 - _Cálculo_: \( |0 - 255| \* 16 \* = 16.320 \) (decimal) = 11111111000000 (binário), sendo 16 o número de leituras da memória/qtd a ser executado o loop, o 4 a quantidade de vetores de cada memoria operados em paralelo, e |0 - 255| a diferença absoluta de dos 4 pixels de 8 bits da amostra.
 - _Resultado esperado_: Durante o período completo de execução, o circuito suporta o valor máximo possível na saída, confirmando que o valor máximo de SAD é calculado corretamente, validando a capacidade do circuito de lidar com o limite superior.
-  
+
 ### Segundo teste (540 ns):
 
 - _Valores_: sample_ori = 11111111111111111111111111111111, sample_can = 11111111111111111111111111111111.
