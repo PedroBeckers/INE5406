@@ -57,13 +57,13 @@ O Sad_v3 requer 51 ciclos para concluir a execução, reduzindo em cerca de 4 ve
 ### Primeiro teste (0 ns):
 
 - _Valores_: sample_ori = 00000000000000000000000000000000, sample_can = 11111111111111111111111111111111.
-- _Cálculo_: \( |0 - 4294967295| \* 16 = 16.320 \) (decimal) = 11111111000000 (binário).
+- _Cálculo_: \( |0 - 255| \* 16 = 16.320 \) (decimal) = 11111111000000 (binário).
 - _Resultado esperado_: Durante o período completo de execução, o circuito deve suportar o valor máximo possível na saída, confirmando que o valor máximo de SAD é calculado corretamente, validando a capacidade do circuito de lidar com o limite superior.
 
 ### Segundo teste (540 ns):
 
 - _Valores_: sample_ori = 11111111111111111111111111111111, sample_can = 11111111111111111111111111111111.
-- _Cálculo_: \( |4294967295 - 4294967295| \* 16 = 0 \).
+- _Cálculo_: \( |255 - 255| \* 16 = 0 \).
 - _Resultado esperado_: O valor acumulado do SAD será 0, indicando uma diferença absoluta de 0 entre as amostras sample_ori e sample_can. Esse resultado confirma que o circuito calcula corretamente a diferença quando os blocos são idênticos.
 
 ### Terceiro teste (810 ns):
