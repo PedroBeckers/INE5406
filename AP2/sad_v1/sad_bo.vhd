@@ -53,15 +53,12 @@ ARCHITECTURE Behavior OF sad_bo IS
 	
 	--SOMADOR
 	COMPONENT somador IS 
-	GENERIC (
-		N : POSITIVE := 6 -- número de bits por amostra
-	);
+	GENERIC (N : POSITIVE := 8);
 	PORT (
-			a : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); --entrada somador
-			b : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); --entrada somador
-			s : OUT STD_LOGIC_VECTOR (N - 1 DOWNTO 0); --saida somador
-			cout : OUT STD_LOGIC --carry out
-		);
+		a, b: IN std_logic_vector (N-1 DOWNTO 0);
+		s: OUT std_logic_vector (N-1 DOWNTO 0);
+		cout: OUT STD_LOGIC
+	);
 	END COMPONENT;
 	
 	--SUBTRATOR
@@ -72,7 +69,7 @@ ARCHITECTURE Behavior OF sad_bo IS
 	PORT (
 			a : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); --entrada subtrator
 			b : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); --entrada subtrator
-			s : OUT STD_LOGIC_VECTOR (N - 1 DOWNTO 0) --saida subtrator
+			s : OUT STD_LOGIC_VECTOR (N DOWNTO 0) --saida subtrator
 		);
 	END COMPONENT;
 	
@@ -84,8 +81,8 @@ ARCHITECTURE Behavior OF sad_bo IS
 	SIGNAL coutsomador_i : STD_LOGIC;                   --carry out somador_i
 	SIGNAL sreg_pA : STD_LOGIC_VECTOR(7 DOWNTO 0);      --saida registrador pA/entrada subtrator
 	SIGNAL sreg_pB : STD_LOGIC_VECTOR(7 DOWNTO 0);		 --saida registrador pB/entrada subtrator
-	SIGNAL ssubtrator_d : STD_LOGIC_VECTOR(7 DOWNTO 0); --saida subtrator_d/entrada abs
-	SIGNAL sabs_d : STD_LOGIC_VECTOR(6 DOWNTO 0);       --saida abs(**1 bit a menos da entrada**)
+	SIGNAL ssubtrator_d : STD_LOGIC_VECTOR(8 DOWNTO 0); --saida subtrator_d/entrada abs
+	SIGNAL sabs_d : STD_LOGIC_VECTOR(7 DOWNTO 0);       --saida abs(**1 bit a menos da entrada**)
 	SIGNAL esomador_d : STD_LOGIC_VECTOR(13 DOWNTO 0);  --entrada somador_d
 	SIGNAL ignorar : STD_LOGIC;								 --carry out do somador_d, nao sera usado, deve ser ignorado
 	SIGNAL ssomador_d : STD_LOGIC_VECTOR(13 DOWNTO 0);  --saida somador_d/entrada mux_d
@@ -123,7 +120,7 @@ BEGIN
        );
 	
 	--CONECTANDO SAIDA "menor" AO MSB DO SINAL "sreg_i" (SAIDA DO REGISTRADOR_I)
-	menor <= sreg_i(6);
+	menor <= not sreg_i(6);
 	esomador_i <= sreg_i(5 DOWNTO 0);
 	ende <= esomador_i;
 	
@@ -179,7 +176,7 @@ BEGIN
 	--ABS
 	abs_d : absolute
 	GENERIC MAP (
-		N => 8
+		N => 9
 	)
 	PORT MAP (
 			a => ssubtrator_d,
@@ -188,7 +185,7 @@ BEGIN
 	 
 	 --AJUSTANDO TAMANHO DA SAIDA DO ABS_D PARA ENTRADA DO SOMADOR_D
 	 
-	 esomador_d <= "0000000" & sabs_d;
+	 esomador_d <= "000000" & sabs_d;
 	 
 	--SOMADOR_D
 	somador_d : somador
