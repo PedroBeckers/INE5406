@@ -74,7 +74,7 @@ ARCHITECTURE Behavior OF sad_bo IS
 	PORT (
 			a : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); --entrada subtrator
 			b : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); --entrada subtrator
-			s : OUT STD_LOGIC_VECTOR (N - 1 DOWNTO 0) --saida subtrator
+			s : OUT STD_LOGIC_VECTOR (N DOWNTO 0) --saida subtrator
 		);
 	END COMPONENT;
 	
@@ -92,19 +92,19 @@ ARCHITECTURE Behavior OF sad_bo IS
 	SIGNAL sreg_pB1 : STD_LOGIC_VECTOR(7 DOWNTO 0);		  --saida registrador pB1/entrada subtrator_d1
 	SIGNAL sreg_pB2 : STD_LOGIC_VECTOR(7 DOWNTO 0);		  --saida registrador pB2/entrada subtrator_d2
 	SIGNAL sreg_pB3 : STD_LOGIC_VECTOR(7 DOWNTO 0);		  --saida registrador pB3/entrada subtrator_d3
-	SIGNAL ssubtrator_d0 : STD_LOGIC_VECTOR(7 DOWNTO 0); --saida subtrator_d0/entrada abs
-	SIGNAL ssubtrator_d1 : STD_LOGIC_VECTOR(7 DOWNTO 0); --saida subtrator_d1/entrada abs
-	SIGNAL ssubtrator_d2 : STD_LOGIC_VECTOR(7 DOWNTO 0); --saida subtrator_d2/entrada abs
-	SIGNAL ssubtrator_d3 : STD_LOGIC_VECTOR(7 DOWNTO 0); --saida subtrator_d3/entrada abs
-	SIGNAL sabs_d0 : STD_LOGIC_VECTOR(6 DOWNTO 0);       --saida abs_d0(**1 bit a menos da entrada**)
-	SIGNAL sabs_d1 : STD_LOGIC_VECTOR(6 DOWNTO 0);       --saida abs_d1(**1 bit a menos da entrada**)
-	SIGNAL sabs_d2 : STD_LOGIC_VECTOR(6 DOWNTO 0);       --saida abs_d2(**1 bit a menos da entrada**)
-	SIGNAL sabs_d3 : STD_LOGIC_VECTOR(6 DOWNTO 0);       --saida abs_d3(**1 bit a menos da entrada**)
-	SIGNAL ssomador_d11 : STD_LOGIC_VECTOR(7 DOWNTO 0);  --saida somador_d11/entrada somador_d21
+	SIGNAL ssubtrator_d0 : STD_LOGIC_VECTOR(8 DOWNTO 0); --saida subtrator_d0/entrada abs
+	SIGNAL ssubtrator_d1 : STD_LOGIC_VECTOR(8 DOWNTO 0); --saida subtrator_d1/entrada abs
+	SIGNAL ssubtrator_d2 : STD_LOGIC_VECTOR(8 DOWNTO 0); --saida subtrator_d2/entrada abs
+	SIGNAL ssubtrator_d3 : STD_LOGIC_VECTOR(8 DOWNTO 0); --saida subtrator_d3/entrada abs
+	SIGNAL sabs_d0 : STD_LOGIC_VECTOR(7 DOWNTO 0);       --saida abs_d0(**1 bit a menos da entrada**)
+	SIGNAL sabs_d1 : STD_LOGIC_VECTOR(7 DOWNTO 0);       --saida abs_d1(**1 bit a menos da entrada**)
+	SIGNAL sabs_d2 : STD_LOGIC_VECTOR(7 DOWNTO 0);       --saida abs_d2(**1 bit a menos da entrada**)
+	SIGNAL sabs_d3 : STD_LOGIC_VECTOR(7 DOWNTO 0);       --saida abs_d3(**1 bit a menos da entrada**)
+	SIGNAL ssomador_d11 : STD_LOGIC_VECTOR(8 DOWNTO 0);  --saida somador_d11/entrada somador_d21
 	SIGNAL coutsomador_d11 : STD_LOGIC;                  --carry out somador_d11
-	SIGNAL ssomador_d12 : STD_LOGIC_VECTOR(7 DOWNTO 0);  --saida somador_d12/entrada somador_d21
+	SIGNAL ssomador_d12 : STD_LOGIC_VECTOR(8 DOWNTO 0);  --saida somador_d12/entrada somador_d21
 	SIGNAL coutsomador_d12 : STD_LOGIC;                   --carry out somador_d12
-	SIGNAL ssomador_d21 : STD_LOGIC_VECTOR(8 DOWNTO 0);  --saida somador_d21
+	SIGNAL ssomador_d21 : STD_LOGIC_VECTOR(9 DOWNTO 0);  --saida somador_d21
 	SIGNAL coutsomador_d21 : STD_LOGIC;                   --carry out somador_d21
 	SIGNAL esomador_d31 : STD_LOGIC_VECTOR(13 DOWNTO 0); --entrada somador_d31
 	SIGNAL ignorar : STD_LOGIC;								  --carry out do somador_d31, nao sera usado, deve ser ignorado
@@ -143,7 +143,7 @@ BEGIN
        );
 	
 	--CONECTANDO SAIDA "menor" AO MSB DO SINAL "sreg_i" (SAIDA DO REGISTRADOR_I)
-	menor <= sreg_i(4);
+	menor <= not sreg_i(4);
 	esomador_i <= sreg_i(3 DOWNTO 0); --ajustado tamanho do vetor esomador_i de 6 para 4
 	ende <= esomador_i; --ajustado tamanho do vetor ende de 6 para 4
 	
@@ -301,12 +301,11 @@ BEGIN
 			s => ssubtrator_d3
 	 );
 	
-	--SAIDA DO ABSOLUTE TEM 1 BIT A MENOS DA ENTRADA, PORTANTO DEVERA SER ADICIONADO 1 BIT NA ENTRADA DO PROX COMPONENTE
 		
 	--ABS_D0
 	abs_d0 : absolute
 	GENERIC MAP (
-		N => 8
+		N => 9
 	)
 	PORT MAP (
 			a => ssubtrator_d0,
@@ -316,7 +315,7 @@ BEGIN
 	--ABS_D1	
 	abs_d1 : absolute
 	GENERIC MAP (
-		N => 8
+		N => 9
 	)
 	PORT MAP (
 			a => ssubtrator_d1,
@@ -326,7 +325,7 @@ BEGIN
 	--ABS_D2
 	abs_d2 : absolute
 	GENERIC MAP (
-		N => 8
+		N => 9
 	)
 	PORT MAP (
 			a => ssubtrator_d2,
@@ -336,7 +335,7 @@ BEGIN
 	--ABS_D3
 	abs_d3 : absolute
 	GENERIC MAP (
-		N => 8
+		N => 9
 	)
 	PORT MAP (
 			a => ssubtrator_d3,
@@ -346,7 +345,7 @@ BEGIN
 	--SOMADOR_D11
 	somador_d11 : somador
 	GENERIC MAP (
-		N => 8
+		N => 9
 	)
 	PORT MAP (
 			a => '0' & sabs_d0,
@@ -358,7 +357,7 @@ BEGIN
 	--SOMADOR_D12
 	somador_d12 : somador
 	GENERIC MAP (
-		N => 8
+		N => 9
 	)
 	PORT MAP (
 			a => '0' & sabs_d2,
@@ -370,7 +369,7 @@ BEGIN
 	--SOMADOR_D21
 	somador_d21 : somador
 	GENERIC MAP (
-		N => 9
+		N => 10
 	)
 	PORT MAP (
 			a => coutsomador_d11 & ssomador_d11,
@@ -381,7 +380,7 @@ BEGIN
 	 
 	 --AJUSTANDO TAMANHO DA SAIDA DO ABS_D PARA ENTRADA DO SOMADOR_D
 	 
-	 esomador_d31 <= "0000" & coutsomador_d21 & ssomador_d21;
+	 esomador_d31 <= "000" & coutsomador_d21 & ssomador_d21;
 	 
 	--SOMADOR_D31
 	somador_d31 : somador
