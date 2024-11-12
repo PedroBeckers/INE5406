@@ -14,7 +14,7 @@ with open("estimulos.dat", "w") as arq:
                 sad_value += abs(mem_A[k] - mem_B[k])
         
         linha = f"{mem_A[0]:08b}" + f"{mem_A[1]:08b}" + f"{mem_A[2]:08b}" + f"{mem_A[3]:08b}"
-        linha += " " + f"{mem_B[0]:08b}" + f"{mem_B[0]:08b}" + f"{mem_B[0]:08b}" + f"{mem_B[0]:08b}"
+        linha += " " + f"{mem_B[0]:08b}" + f"{mem_B[1]:08b}" + f"{mem_B[2]:08b}" + f"{mem_B[3]:08b}"
         linha += " " + f"{sad_value:014b}" 
         
         arq.write(linha + "\n")
