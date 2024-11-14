@@ -40,7 +40,7 @@ begin
     begin
         
         reset <= '1';
-        enable <= '1';
+        enable <= '0';
         wait for clk_periodo * 1;
         
         -- teste 1
