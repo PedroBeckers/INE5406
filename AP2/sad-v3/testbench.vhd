@@ -18,10 +18,10 @@ architecture tb of testbench is
     signal clk       : std_logic := '0';
     signal enable    : std_logic := '0';
     signal reset     : std_logic := '1';
-    signal sample_ori, sample_can   : std_logic_vector(B_BITS - 1 downto 0);
-    signal sad_value                : std_logic_vector((integer(ceil(real(B_BITS) / real(P_BITS))) + integer(ceil(log2(real(N_BITS)))) + integer(ceil(log2(real(P_BITS)))) - 1) downto 0);
-    signal read_mem, done           : std_logic := '0';
-    signal address                  : std_logic_vector(integer(ceil(log2(real(N_BITS)))) - 1 downto 0);
+    signal sample_ori, sample_can : std_logic_vector(B_BITS - 1 downto 0);
+    signal sad_value : std_logic_vector((integer(ceil(real(B_BITS) / real(P_BITS))) + integer(ceil(log2(real(N_BITS)))) + integer(ceil(log2(real(P_BITS)))) - 1) downto 0);
+    signal read_mem, done : std_logic := '0';
+    signal address : std_logic_vector(integer(ceil(log2(real(N_BITS)))) - 1 downto 0);
 
 begin
     DUV: entity work.sad
@@ -46,25 +46,37 @@ begin
         variable valor1 : bit_vector(31 downto 0);
         variable valor2 : bit_vector(31 downto 0);
         variable valor_saida : bit_vector(13 downto 0);
+        variable contador : integer := 1;
 		  
-    begin  
-		  reset <= '0'; 
+    begin
+		  reset <= '1'; 
+        enable <= '0';
+		  wait for 10 ns;
+		  
+		  
+        reset <= '0'; 
         enable <= '1';
-		  wait for 5 ns;
+        wait for 20 ns;
+		  
 
         while not endfile(arquivo_de_estimulos) loop
-            readline(arquivo_de_estimulos, linha_de_estimulos);
-            read(linha_de_estimulos, valor1);
-            sample_ori <= to_stdlogicvector(valor1);
-            read(linha_de_estimulos, espaco);
-            read(linha_de_estimulos, valor2);
-            sample_can <= to_stdlogicvector(valor2);
-            read(linha_de_estimulos, espaco);
-            read(linha_de_estimulos, valor_saida);
-            
-            wait for (clk_periodo * 52);
-            assert (sad_value = to_stdlogicvector(valor_saida))
-                report "Falha na simulacao." severity error;
+            if (contador mod 17 /= 0) then
+                readline(arquivo_de_estimulos, linha_de_estimulos);
+                read(linha_de_estimulos, valor1);
+                sample_ori <= to_stdlogicvector(valor1);
+                read(linha_de_estimulos, espaco);
+                read(linha_de_estimulos, valor2);
+                sample_can <= to_stdlogicvector(valor2);
+					 wait for clk_periodo * 3;
+            else
+                readline(arquivo_de_estimulos, linha_de_estimulos);
+                read(linha_de_estimulos, valor_saida);
+                wait for clk_periodo * 4;
+                assert (sad_value = to_stdlogicvector(valor_saida))
+                    report "Falha na simulacao." severity error;
+            end if;
+
+            contador := contador + 1;
         end loop;
 
         wait for clk_periodo;
