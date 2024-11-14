@@ -67,7 +67,10 @@ begin
         sample_ori <= "11111111";
         wait for clk_periodo * 196 + 5 ns;
         assert (sad_value = "11111111000000") report "Falha no quarto teste" severity error;
-
+		  
+		  wait for clk_periodo;
+		  assert false report "Fim do teste." severity note;
+		  
         wait;
     end process;
 end architecture tb;
