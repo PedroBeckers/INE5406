@@ -48,7 +48,7 @@ begin
         enable <= '1';
         sample_ori <= (others => '0');
         sample_can <= (others => '0');
-        wait for clk_periodo * 196;
+        wait for clk_periodo * 196 + 5 ns;
         assert (sad_value = "00000000000000") report "Falha no primeiro teste" severity error;
 
         -- teste 2
